@@ -7,27 +7,39 @@ public class Converter {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("--- Конвертер дистанції ---");
-        System.out.println("1. Милі -> Кілометри");
-        System.out.println("2. Кілометри -> Милі");
-        System.out.print("Оберіть опцію (1 або 2): ");
+        while (true) {
+            System.out.println("\n--- Конвертер дистанції ---");
+            System.out.println("1. Милі -> Кілометри");
+            System.out.println("2. Кілометри -> Милі");
+            System.out.println("0. Вихід");
+            System.out.print("Оберіть опцію: ");
 
-        int choice = scanner.nextInt();
+            // Перевірка, чи ввів користувач саме число
+            if (!scanner.hasNextInt()) {
+                System.out.println("Помилка: введіть число (1, 2 або 0).");
+                scanner.next(); // Очищення буфера від некоректного введення
+                continue;
+            }
 
-        if (choice == 1) {
-            System.out.print("Введіть відстань у милях: ");
-            double miles = scanner.nextDouble();
-            double km = miles * MILES_TO_KM;
-            System.out.printf("%.2f миль = %.2f км%n", miles, km);
-        } else if (choice == 2) {
-            System.out.print("Введіть відстань у кілометрах: ");
-            double km = scanner.nextDouble();
-            double miles = km / MILES_TO_KM;
-            System.out.printf("%.2f км = %.2f миль%n", km, miles);
-        } else {
-            System.out.println("Помилка: невірна опція.");
+            int choice = scanner.nextInt();
+
+            if (choice == 0) {
+                System.out.println("Завершення роботи. Бувай!");
+                break; // Вихід з циклу
+            }
+
+            if (choice == 1) {
+                System.out.print("Введіть милі: ");
+                double miles = scanner.nextDouble();
+                System.out.printf("Результат: %.2f км%n", miles * MILES_TO_KM);
+            } else if (choice == 2) {
+                System.out.print("Введіть кілометри: ");
+                double km = scanner.nextDouble();
+                System.out.printf("Результат: %.2f миль%n", km / MILES_TO_KM);
+            } else {
+                System.out.println("Невірна опція. Спробуйте ще раз.");
+            }
         }
-
         scanner.close();
     }
 }
